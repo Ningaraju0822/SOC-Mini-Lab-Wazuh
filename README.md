@@ -1,134 +1,58 @@
-# SOC Mini Lab – Wazuh, ELK Stack, Caldera & Atomic Red Team
+# Mini SOC Lab
 
-## 📌 Project Overview
-The **SOC Mini Lab** is a simulated Security Operations Center environment built to detect, analyze, and respond to cyberattacks in real time.  
-This lab leverages **open-source tools** to replicate enterprise SOC operations, covering **SIEM**, **log analysis**, **endpoint monitoring**, and **attack simulations**.
+## Overview
+This Mini SOC Lab demonstrates a simple Security Operations Center environment using open-source tools. The lab includes:
 
-It demonstrates **end-to-end SOC workflows** — from attack simulation to detection and incident investigation.
+- **Attacker:** Kali Linux VM  
+- **Victim:** Ubuntu Linux VM  
+- **SIEM & Monitoring:** Wazuh (Manager + ELK Stack) on Ubuntu  
 
----
+The setup enables practicing attack simulation, detection, and incident response.
 
-## 🎯 Objectives
-- Build a functional SOC environment using open-source tools.
-- Simulate real-world cyberattacks and collect logs.
-- Create detection rules and visualize alerts in a SIEM.
-- Demonstrate SOC incident response and threat hunting workflows.
-- Document results for portfolio and interview purposes.
+## Lab Architecture
 
----
-
-## 🏗 Architecture Diagram
-
-[ Kali Linux (Attacker) ] → [ Windows 10 VM (Victim) ]
-↓ ↓
-[ Wazuh Agent ] [ Wazuh Agent ]
-↓ ↓
-[ Wazuh Server + ELK Stack ]
-↓
-[ SOC Analyst Dashboard ]
+Kali Linux (Attacker) --> Ubuntu Linux (Victim with Wazuh Manager & Agent)
+|
+--> Wazuh Manager + ELK Stack for centralized logging & alerting
 
 
----
+## Components
+| Component     | Description                         |
+|---------------|-----------------------------------|
+| Kali Linux    | Attacker machine for pentesting   |
+| Ubuntu Linux  | Victim machine with Wazuh Agent   |
+| Wazuh Manager | Centralized detection & monitoring|
+| ELK Stack     | Log storage, processing, and UI   |
 
-## 🛠 Tools & Technologies Used
-| Tool | Purpose |
-|------|---------|
-| **VirtualBox** | Virtualization platform for creating isolated lab environments |
-| **Kali Linux** | Attacker machine for penetration testing |
-| **Windows 10 VM** | Victim machine for endpoint monitoring |
-| **Wazuh** | SIEM & endpoint monitoring |
-| **ELK Stack (Elasticsearch, Logstash, Kibana)** | Log storage, processing, and visualization |
-| **Caldera** | Automated adversary emulation platform |
-| **Atomic Red Team** | MITRE ATT&CK-based attack simulation |
+## Setup Instructions
 
----
+### 1. Environment Preparation
+- Install VirtualBox on your host system  
+- Create Kali Linux and Ubuntu VMs with 2GB+ RAM and 20GB disk each  
+- Install respective OS using official ISOs
 
-## 🔧 Step-by-Step Implementation
+### 2. Install and Configure Wazuh
+- On Ubuntu VM, install Wazuh Manager and ELK Stack  
+- Install Wazuh Agent on Ubuntu and configure it to communicate with Wazuh Manager  
+- Install Wazuh Agent on Kali Linux and configure similarly
 
-### **1. Lab Setup**
-- Installed **VirtualBox** and created three virtual machines:
-  - Kali Linux (Attacker)
-  - Windows 10 (Victim)
-  - Ubuntu Server with Wazuh & ELK Stack
-- Configured all machines in **Host-Only Adapter** mode for network isolation.
+### 3. Testing and Monitoring
+- Verify agents are connected to Wazuh Manager  
+- From Kali Linux, run pentesting tools (nmap, hydra, etc.) targeting Ubuntu  
+- Monitor alerts and logs in Kibana dashboards  
+- Practice alert triage and incident response
 
-### **2. Wazuh & ELK Installation**
-- Installed **Wazuh Manager** on Ubuntu server.
-- Deployed **ELK Stack** for log management and dashboards.
-- Installed and connected **Wazuh Agents** on Kali Linux and Windows 10 VMs.
-- Verified agent connections in the Wazuh dashboard.
+## Benefits
+- Hands-on SOC monitoring experience  
+- Understand attack detection and alert management  
+- Prepare for real-world cybersecurity operations
 
-### **3. Attack Simulation**
-- **Caldera**:
-  - Ran phishing simulation and lateral movement scenarios.
-- **Atomic Red Team**:
-  - Executed MITRE ATT&CK TTPs (Credential Dumping, Brute Force, etc.).
-- **Manual Attacks from Kali**:
-  - SSH brute force with Hydra.
-  - SMB enumeration & exploitation.
-
-### **4. Detection & Analysis**
-- Wazuh collected endpoint and network logs from agents.
-- Created **custom detection rules** for brute force, privilege escalation, and malicious file execution.
-- Visualized incidents and alerts in **Kibana dashboards**.
-
-### **5. Incident Response**
-- Investigated triggered alerts in Wazuh.
-- Correlated multiple indicators to detect attack patterns.
-- Documented incidents in a structured format.
+## References
+- [Wazuh Documentation](https://documentation.wazuh.com/)  
+- [Kali Linux](https://www.kali.org/)  
+- [Ubuntu](https://ubuntu.com/)  
+- [VirtualBox](https://www.virtualbox.org/)
 
 ---
 
-## 📊 Detection Results
-| Attack Type | Tool Used | Detection Method | Alert Status |
-|-------------|-----------|------------------|--------------|
-| SSH Brute Force | Hydra | Wazuh rule 5710 | ✅ Detected |
-| Credential Dumping | Atomic Red Team | Sysmon + Wazuh | ✅ Detected |
-| Phishing Simulation | Caldera | Email log analysis | ✅ Detected |
-
----
-
-## 📸 Screenshots
-*(Replace these placeholders with your own screenshots)*  
-- **Wazuh Dashboard** – showing real-time alerts.  
-- **Kibana Attack Timeline** – visual representation of incidents.  
-- **Caldera Attack Graph** – mapping simulated attack steps.  
-- **Atomic Red Team Logs** – execution and detection proof.
-
----
-
-## 📚 Lessons Learned
-- SIEM fine-tuning reduces false positives significantly.
-- Attack simulation tools are essential for SOC readiness testing.
-- Isolated lab environments prevent accidental real-world impact.
-
----
-
-## 🚀 Future Improvements
-- Integrate **Shuffle SOAR** for automated incident response.
-- Add **Threat Intelligence Feeds** to Wazuh.
-- Expand the lab with **cloud workload monitoring** capabilities.
-
----
-
-## 📂 Repository Structure
-
-SOC-Mini-Lab/
-│── README.md # Project documentation
-│── diagrams/ # Architecture diagrams
-│── screenshots/ # Lab screenshots
-│── configs/ # Wazuh & ELK configuration files
-│── attack-scripts/ # Custom attack scripts
-
-
----
-
-## 🏷 GitHub Topics
-`soc` `cybersecurity` `siem` `wazuh` `elk-stack` `incident-response` `threat-hunting` `caldera` `atomic-red-team` `red-team` `blue-team` `security-lab`
-
----
-
-## 📜 License
-This project is licensed under the MIT License – feel free to use, modify, and share.
-
-
+Feel free to customize and expand this README for your GitHub repo! Need help generating the PDF too?
